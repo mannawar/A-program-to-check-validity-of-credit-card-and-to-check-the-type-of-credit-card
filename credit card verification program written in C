@@ -44,7 +44,7 @@ int main(void)
     int digits[C_LENGTH_MAX];
     int c_length = c_num_to_array (c_number, digits);            // Get length of c_number and convert c_number to array
     int first_2 = (10 * (digits[(c_length - 1)])) + digits[(c_length - 2)];
-    int first_3 = (10 * (digits[(c_length - 1)])) + digits[(c_length - 2)] + digits[(c_length - 3)];
+    int first_3 = (100 * (digits[(c_length - 1)])) + (10*(digits[(c_length - 2)])) + digits[(c_length - 3)];
     string c_name = get_name(digits, c_length, first_2, first_3); // Check c_number for validity and produce credit card name
     printf("%s", c_name);
 }
@@ -81,14 +81,14 @@ string get_name(int *digits, int c_length, int first_2, int first_3)
         return C_NAME_MASTERCARD;
     }
     else if (((c_length == C_LENGTH_VISA) || (c_length == C_LENGTH_MASTC_OR_VISA)) &&
-            ((first_2 >= 40) && (first_2 <= 49)) &&
-            (result_luhn == 0))
+             ((first_2 >= 40) && (first_2 <= 49)) &&
+             (result_luhn == 0))
     {
         return C_NAME_VISA;
     }
-    else if(((c_length == C_LENGTH_DINERSCLUB)) &&
-            ((first_3 >= 300) && (first_3 <= 305)) && ((first_2 == 36) || (first_2 == 38)) &&
-            (result_luhn == 0))
+    else if (((c_length == C_LENGTH_DINERSCLUB)) &&
+             (first_3 == 305)  &&
+             (result_luhn == 0))
     {
         return C_NAME_DINERSCLUB;
     }
